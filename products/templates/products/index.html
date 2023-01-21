@@ -17,9 +17,9 @@
 <body>
     <h1 class="display-1">Интернет Магазин "У Валеры": Каталог</h1>
     <a href="/" class="btn btn-warning">На главную</a>
-    <div class = "container">
+    <div class = "container" >
         {% for product in products %}
-		<div class="row align-items-center">
+		<div class="row align-items-center" style="display:inline-block">
         <div class="card" style="width: 18rem;">
             <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
             <div class="card-body">
