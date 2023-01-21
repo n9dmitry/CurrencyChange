@@ -8,5 +8,5 @@ app_name = 'products'
 urlpatterns = [
 #    path('', views.index, name='products'),
     path('', product_list, name='product_list'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
 
