@@ -15,8 +15,50 @@
 
 </head>
 <body>
+{#сообщение#}
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+{#конец сообщения#}
+
     <h1 class="display-1">Интернет Магазин "У Валеры": Каталог</h1>
     <a href="/" class="btn btn-warning">На главную</a>
+{# выпадающий список валюты #}
+    <div class="btn-group">
+      <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="showMenu()">
+        RUB
+      </button>
+      <div class="dropdown-menu" id="menu" style="display:none;">
+        <a class="dropdown-item" href="#" onclick="changeCurrency('RUB')">RUB</a>
+        <a class="dropdown-item" href="#" onclick="changeCurrency('USD')">USD</a>
+        <a class="dropdown-item" href="#" onclick="changeCurrency('EUR')">EUR</a>
+      </div>
+    </div>
+    <script>
+    function showMenu() {
+      var menu = document.getElementById("menu");
+      if (menu.style.display === "none") {
+        menu.style.display = "block";
+      } else {
+        menu.style.display = "none";
+      }
+    }
+
+    function changeCurrency(currency) {
+      var button = document.getElementsByClassName("btn-danger")[0];
+      button.innerHTML = currency;
+      showMenu();
+    }
+    </script>
+{# кнопка для обновления курсов валют #}
+<button type="button" class="btn btn-info" onclick="update_currency()">Обновить курс валют</button>
+
+{# товары #}
+
     <div class = "container" >
         {% for product in products %}
 		<div class="row align-items-center" style="display:inline-block">
