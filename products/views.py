@@ -25,7 +25,7 @@ def update_currency(request):
         response = requests.get(url)
         data = response.json()
         rates = data['rates']
-        # save rates in the database
+        # сохраняем "рейтс" в базу
         for name, rate in rates.items():
             obj, created = Currency.objects.update_or_create(
                 name=name,
