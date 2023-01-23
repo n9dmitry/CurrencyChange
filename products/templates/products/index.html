@@ -48,7 +48,11 @@
         menu.style.display = "none";
       }
     }
-
+     function changeCurrency(currency) {
+          var button = document.getElementsByClassName("btn-danger")[0];
+          button.innerHTML = currency;
+          showMenu();
+    }
     </script>
 {# кнопка для обновления курсов валют #}
 <button id="update-rates-button" type="button" class="btn btn-info">Обновить курс валют</button>
@@ -62,8 +66,10 @@
             // Получаем данные - присваиваем данные
             .then(data => {
                 let rates = data.rates;
+                //отображение в консоли
                 console.log(rates);
             })
+            //отображение ошибок в консоли
             .catch(error => console.log(error));
     });
 </script>
