@@ -49,24 +49,20 @@
       }
     }
 
-    function changeCurrency(currency) {
-      var update_currency = document.getElementsByClassName("btn-danger")[0];
-      update_currency.innerHTML = currency;
-    }
     </script>
 {# кнопка для обновления курсов валют #}
-<button id="update-button" type="button" class="btn btn-info">Обновить курс валют</button>
+<button id="update-rates-button" type="button" class="btn btn-info">Обновить курс валют</button>
 <script>
-    // Обработчик события клика на кнопку
-    document.getElementById("update-button").addEventListener("click", function(){
-        // Отправка запроса к API openexchangerate
+    // Получаем элемент , addEventListener - навешивается js на элемент html, добавляет обработчик события "click" на элемент
+    document.getElementById("update-rates-button").addEventListener("click", function(){
+        //fetch - функция для отправки http запросов
         fetch("https://openexchangerates.org/api/latest.json?app_id=0b3a0600039b4a438508b98feb11b8a7")
+            // обещание преобразования в js объект из json
             .then(response => response.json())
+            // Получаем данные - присваиваем данные
             .then(data => {
-                // Получение курсов валют из ответа API
                 let rates = data.rates;
                 console.log(rates);
-                // Добавить код для сохранения курсов валют в currency_rate.json и базе данных
             })
             .catch(error => console.log(error));
     });
