@@ -60,7 +60,7 @@
     // Получаем элемент , addEventListener - навешивается js на элемент html, добавляет обработчик события "click" на элемент
     document.getElementById("update-rates-button").addEventListener("click", function(){
         //fetch - функция для отправки http запросов
-        fetch("https://openexchangerates.org/api/latest.json?app_id=0b3a0600039b4a438508b98feb11b8a7")
+        fetch("http://127.0.0.1:8000/products/actual_rates/")
             .then(response => response.json())   // преобразования js объект из json
             .then(data => { // Получаем данные - присваиваем данные
                 let rates = data.rates;
