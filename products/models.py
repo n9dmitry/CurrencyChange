@@ -12,5 +12,5 @@ def __str__(self):
     return self.name
 
 class Currency(models.Model):
-    name = models.CharField(max_length=3)
+    name = models.CharField(max_length=3, unique=True)
     rate = models.FloatField()

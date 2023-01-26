@@ -38,5 +38,8 @@ def actual_rates(request):
     url = 'https://openexchangerates.org/api/latest.json?app_id=' + api_key
     response = requests.get(url)
     api_data = response.json()
+    for name, rate in api_data['rates'].items():
+        Currency.objects.update_or_create(name=name, defaults={'rate': rate})
+
     return JsonResponse(api_data)
 
