@@ -5,6 +5,7 @@ import requests
 from .models import Product
 from .models import Currency
 from django.contrib import messages
+import sqlite3
 
 def store_view(request):
     return render(request, 'products/base.html')
@@ -40,6 +41,13 @@ def actual_rates(request):
     api_data = response.json()
     for name, rate in api_data['rates'].items():
         Currency.objects.update_or_create(name=name, defaults={'rate': rate})
-
     return JsonResponse(api_data)
 
+def convert_currency(request, currency):
+    print(f'{currency=}')
+    products = Product.objects.all()
+    rate = Currency.objects.get(name=currency).rate
+    base_rate = Currency.objects.get(name='RUB').rate
+    for product in products:
+        product.price = float(product.price) / float(base_rate) * float(rate)
+    return HttpResponse(' jj oijq')

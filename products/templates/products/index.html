@@ -30,7 +30,7 @@
     <a href="/" class="btn btn-warning">На главную</a>
 {# выпадающий список валюты #}
     <div class="btn-group">
-      <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="showMenu()">
+      <button type="button" id="btn-currency-changer" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="showMenu()">
         RUB
       </button>
       <div class="dropdown-menu" id="menu" style="display:none;">
@@ -49,10 +49,20 @@
       }
     }
      function changeCurrency(currency) {
-          var button = document.getElementsByClassName("btn-danger")[0];
+          var button = document.getElementById("btn-currency-changer");
           button.innerHTML = currency;
           showMenu();
+          fetch("http://127.0.0.1:8000/products/actual_rates/")
+            .then(response => response.json())   // преобразования js объект из json
+            .then(data => { // Получаем данные - присваиваем данные
+                let rates = data.rates;
+                //отображение в консоли
+                location.reload();
+            })
+            //отображение ошибок в консоли
+            .catch(error => console.log(error));
     }
+
     </script>
 {# кнопка для обновления курсов валют #}
 <button id="update-rates-button" type="button" class="btn btn-info">Обновить курс валют</button>
