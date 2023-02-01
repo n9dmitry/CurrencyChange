@@ -26,5 +26,6 @@ from products.views import index, store_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('products/', include('products.urls', namespace='products')),
+    path('users/', include('users.urls', namespace='users')),
     path('', store_view, name='home'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
