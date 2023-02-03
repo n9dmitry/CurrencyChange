@@ -51,3 +51,4 @@ def convert_currency(request, currency):
     for product in products:
         product.price = float(product.price) / float(base_rate) * float(rate)
     return HttpResponse(' jj oijq')
+

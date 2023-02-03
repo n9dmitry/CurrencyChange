@@ -5,7 +5,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+
 
 
 class RegistrationForm(UserCreationForm):
@@ -36,7 +37,8 @@ def LoginUser(request):
         if user is not None:
             login(request, user)
             # Перенаправляем пользователя на главную страницу
-            return redirect('index')
+            request.session['username'] = username
+            return redirect('home')
         else:
             # Аутентификация не удалась
             print('аутентификация не удалась')
@@ -44,10 +46,19 @@ def LoginUser(request):
     else:
         return render(request, 'users/login.html', )
 
-# def LogoutUser(request):
-#     logout(request)
-#     # redirect to a success page
-#     return render(request, 'login.html')
+def LogoutUser(request):
+    logout(request)
+    # редирект на страницу
+    return render(request, 'users/login.html')
 
 
-# / вот выше нихуя не получается
+# def username_view(request):
+#     if request.user.is_authenticated:
+#         username = request.user.username
+#     else:
+#         username = None
+#
+#     context = {
+#         'username': username,
+#     }
+#     return render(request, 'products/index.html', context)

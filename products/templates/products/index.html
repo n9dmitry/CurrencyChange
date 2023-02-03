@@ -28,6 +28,9 @@
 
     <h1 class="display-1">Интернет Магазин "У Валеры": Каталог</h1>
     <a href="/" class="btn btn-warning">На главную</a>
+    <a href="http://127.0.0.1:8000/admin/" class="btn btn">Админка</a>
+    <a href="http://127.0.0.1:8000/users/login" class="btn btn">Логин</a>
+    <p>Привет, {{ username }}</p>
 {# выпадающий список валюты #}
     <div class="btn-group">
       <button type="button" id="btn-currency-changer" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="showMenu()">
@@ -48,7 +51,16 @@
         menu.style.display = "none";
       }
     }
+
+    try{
+          button.innerHTML = localStorage.getItem('valute');
+         }
+        catch{
+
+        }
+
      function changeCurrency(currency) {
+          localStorage.setItem('valute', currency);
           var button = document.getElementById("btn-currency-changer");
           button.innerHTML = currency;
           showMenu();
