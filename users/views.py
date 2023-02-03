@@ -1,20 +1,19 @@
+from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+
 
 def login(request):
-    return render(request, 'users/login.html',)
-    # if request.method != 'POST':
-    #     # Запрашиваем имя пользователя и пароль из HTML-формы
-    #     username = request.POST.get('username')
-    #     password = request.POST.get('password')
-    #
-    #     # Проверяем правильность имени пользователя и пароля
-    #     user = authenticate(username=username, password=password)
-    #     if user is not None:
-    #         # Аутентификация прошла успешно
-    #         login(request, user)
-    #         # Перенаправляем пользователя на главную страницу
-    #         return redirect('index')
-    #     else:
-    #         # Аутентификация не удалась
-    #         return redirect('login')
+    if request.method == 'GET':
+        return render(request, 'users/login.html')
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        print(username)
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('index')
+        else:
+            return redirect('login')

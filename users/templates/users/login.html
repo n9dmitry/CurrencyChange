@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Логинимся</title>
 </head>
 <body>
-    <form action="{% url 'login' %}" method="post">
+    <form action="" method="post">
         {% csrf_token %}
         <input type="text" name="username" placeholder="Имя пользователя" />
         <input type="password" name="password" placeholder="Пароль" />
