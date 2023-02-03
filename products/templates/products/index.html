@@ -34,12 +34,17 @@
 {# выпадающий список валюты #}
     <div class="btn-group">
       <button type="button" id="btn-currency-changer" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="showMenu()">
+        {% if currency %}
+         {{ currency }}
+        {% else %}
         RUB
+        {% endif %}
       </button>
+
       <div class="dropdown-menu" id="menu" style="display:none;">
-        <a class="dropdown-item" href="#" onclick="changeCurrency('RUB')">RUB</a>
-        <a class="dropdown-item" href="#" onclick="changeCurrency('USD')">USD</a>
-        <a class="dropdown-item" href="#" onclick="changeCurrency('EUR')">EUR</a>
+        <a class="dropdown-item" href="{% url 'products:convert_currency' currency='RUB' %} ">RUB</a>
+        <a class="dropdown-item" href="{% url 'products:convert_currency' currency='USD' %} ">USD</a>
+        <a class="dropdown-item" href="{% url 'products:convert_currency' currency='EUR' %} ">EUR</a>
       </div>
     </div>
     <script>
@@ -52,15 +57,9 @@
       }
     }
 
-    try{
-          button.innerHTML = localStorage.getItem('valute');
-         }
-        catch{
-
-        }
 
      function changeCurrency(currency) {
-          localStorage.setItem('valute', currency);
+          localStorage.setItem('valute', rub)
           var button = document.getElementById("btn-currency-changer");
           button.innerHTML = currency;
           showMenu();
@@ -74,7 +73,6 @@
             //отображение ошибок в консоли
             .catch(error => console.log(error));
     }
-
     </script>
 {# кнопка для обновления курсов валют #}
 <button id="update-rates-button" type="button" class="btn btn-info">Обновить курс валют</button>
@@ -103,7 +101,7 @@
             <div class="card-body">
             <h5 class="card-title">{{ product.name }}</h5>
             <p class="card-text">{{ product.description }}</p>
-              <p class="h4">{{ product.price }} RUB</p>
+              <p class="h4">{{ product.price }} {{ currency }}</p>
             <a href="#" class="btn btn-primary">Купить</a>
               <button type="button" class="btn btn-info">Добавить в корзину</button>
             </div>
