@@ -4,6 +4,10 @@
         <title>Регистрация</title>
     </head>
     <body>
-
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit">Зарегистрироваться</button>
+        </form>
     </body>
 </html>
