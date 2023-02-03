@@ -5,6 +5,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login
+
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField()
@@ -28,24 +30,24 @@ def register(request):
 
 def LoginUser(request):
     if request.method == 'POST':
-        #     # Запрашиваем имя пользователя и пароль из HTML-формы
         username = request.POST.get('username')
         password = request.POST.get('password')
-
-        # Проверяем правильность имени пользователя и пароля
-        user = authenticate(username=username, password=password)
+        user = authenticate(request, username=username, password=password)
         if user is not None:
-            # Аутентификация прошла успешно
             login(request, user)
             # Перенаправляем пользователя на главную страницу
             return redirect('index')
         else:
             # Аутентификация не удалась
+            print('аутентификация не удалась')
             return redirect('login')
     else:
         return render(request, 'users/login.html', )
 
-
+# def LogoutUser(request):
+#     logout(request)
+#     # redirect to a success page
+#     return render(request, 'login.html')
 
 
 # / вот выше нихуя не получается
